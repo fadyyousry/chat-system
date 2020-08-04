@@ -2,15 +2,12 @@ import React from 'react';
 
 function Room(props) {
   return (
-    <div className="chat_list">
-      <div className="chat_people">
-        <div className="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" /> </div>
-        <div className="chat_ib">
-          <h5>{props.name}<span className="chat_date">{props.messageTime}</span></h5>
-          <p>{props.message}</p>
-        </div>
-      </div>
-    </div>
+    <li key={props.room.id}>
+      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/thomas.jpg" alt="" />
+      <span className="name">{props.room.name}</span>
+      <span className="time">{props.room.created_at}</span>
+      <span className="preview">{props.room.message}</span>
+    </li>
   );
 }
 

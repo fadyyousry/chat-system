@@ -4,9 +4,10 @@ import Typing from './Typing';
 
 function Chat(props) {
   return (
-    <div className="mesgs">
-      <MessagesList />
-      <Typing />
+    <div className="right">
+      <div className="top"><span>To: <span className="name">{props.chat_name}</span></span></div>
+        <MessagesList />
+        <Typing />
     </div>
   );
 }

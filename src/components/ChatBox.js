@@ -1,12 +1,12 @@
 import React from 'react';
-import Sidebar from './Sidebar';
+import RoomsList from './RoomsList';
 import Chat from './Chat';
 
 function ChatBox(props) {
   return (
-    <div className="container">
-      <div className="inbox_msg">
-        <Sidebar />
+    <div className="wrapper">
+      <div className="container">
+        <RoomsList />
         <Chat />
       </div>
     </div>
