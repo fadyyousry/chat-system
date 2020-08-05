@@ -7,7 +7,7 @@ function Typing(props) {
   return (
     <div className="write">
         <input type="text" placeholder="Type a message" />
-        <button type="button"><FontAwesomeIcon icon={faPaperPlane} /></button>
+        <button type="button" className="write-link.send"><FontAwesomeIcon icon={faPaperPlane} /></button>
     </div>
   );
 }
