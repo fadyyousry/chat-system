@@ -1,7 +1,7 @@
 import React from 'react';
 import Room from './Room';
 import $ from 'jquery';
-import Url from '../../App';
+import {url} from '../../helper';
 
 class RoomsList extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class RoomsList extends React.Component {
   componentDidMount() {
     $.ajax({
       type: "GET",
-      url: Url + "/chats",
+      url: url + "/chats",
       beforeSend: function (xhr) {
         xhr.setRequestHeader("Authorization", 'Bearer '+ "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTY2MzQ0MjN9.whYhvWu1hk9NLeE3mwwtzyJFfBhylDHJP2UyvFtLZS4");
       },

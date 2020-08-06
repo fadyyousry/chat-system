@@ -1,8 +1,10 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.scss';
 import Chat from './Chat';
 import RoomsList from './RoomsList';
+import { url, loggedIn } from '../../helper';
 
 
 function ChatBox(props) {

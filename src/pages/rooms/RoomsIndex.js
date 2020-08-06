@@ -1,7 +1,9 @@
 import React from 'react';
-import Room from './Room';
+import { Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus  } from '@fortawesome/free-solid-svg-icons';
+import Room from './Room';
+import { url, loggedIn } from '../../helper';
 
 class RoomsIndex extends React.Component {
   render(){

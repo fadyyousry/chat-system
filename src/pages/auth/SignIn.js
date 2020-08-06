@@ -1,15 +1,14 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import './style.scss';
-import { Url } from '../../App'
+import { url } from '../../helper';
 
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: '',
-      loggedIn: false
+      password: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,7 +26,6 @@ class SignIn extends React.Component {
   }
 
   handleSubmit(event) {
-    const url = Url._currentValue;
     fetch(url + '/login', {
       method: "POST",
       headers: {
@@ -50,18 +48,15 @@ class SignIn extends React.Component {
     return (
       <div>
         {
-          this.state.loggedIn?
-            <Redirect to="/rooms" />
-            :
-            <form className="form" onSubmit={this.handleSubmit}>
-              <h2 className="form-heading">Please login</h2>
-              <input type="text" className="form-control" name="email" placeholder="Email Address" required="" autoFocus=""
-              value={this.state.email} onChange={this.handleChange} />
-              <input type="password" className="form-control" name="password" placeholder="Password" required=""
-              value={this.state.password} onChange={this.handleChange} />
-              <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-            </form>
-      }
+          <form className="form" method="post" onSubmit={this.handleSubmit}>
+            <h2 className="form-heading">Please login</h2>
+            <input type="text" className="form-control" name="email" placeholder="Email Address" required="" autoFocus=""
+            value={this.state.email} onChange={this.handleChange} />
+            <input type="password" className="form-control" name="password" placeholder="Password" required=""
+            value={this.state.password} onChange={this.handleChange} />
+            <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+          </form>
+        }
       </div>
     );
   }
