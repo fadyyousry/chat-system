@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import './style.scss';
-import { url, loggedIn } from '../../helper';
+import { url } from '../../helper';
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -31,7 +31,6 @@ class SignUp extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(JSON.stringify(this.state));
     fetch(url + '/users', {
       method: "POST",
       headers: {
@@ -39,9 +38,15 @@ class SignUp extends React.Component {
       },
       body:JSON.stringify(this.state)
     }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
       response.json().then((result) => {
         this.setState({signedUp: true});
       })
+    })
+    .catch((error) => {
+      console.error('Error:', error);
     })
     event.preventDefault();
   }

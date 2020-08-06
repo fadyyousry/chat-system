@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import './style.scss';
 import { url } from '../../helper';
 
@@ -33,6 +32,9 @@ class SignIn extends React.Component {
       },
       body:JSON.stringify(this.state)
     }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
       response.json().then((result) => {
         localStorage.setItem('login', JSON.stringify({
           login: true,
@@ -40,6 +42,9 @@ class SignIn extends React.Component {
         }))
         this.setState({loggedIn: true});
       })
+    })
+    .catch((error) => {
+      console.error('Error:', error);
     })
     event.preventDefault();
   }
