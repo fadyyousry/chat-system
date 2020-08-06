@@ -26,7 +26,6 @@ class Typing extends React.Component {
       if (!response.ok) {
         throw Error(response.statusText);
       }
-      console.log(response);
     })
     .catch((error) => {
       console.error('Error:', error);

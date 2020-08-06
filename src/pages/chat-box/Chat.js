@@ -3,10 +3,6 @@ import MessagesList from './MessagesList';
 import Typing from './Typing';
 
 class Chat extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     let name = '';
     if (this.props.room) name = this.props.room.name;

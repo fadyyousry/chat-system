@@ -2,9 +2,6 @@ import React from 'react';
 import { userId } from '../../helper';
 
 class Message extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     let className = "bubble ";
     className += userId() === this.props.message.user_id ? "me" : "you";

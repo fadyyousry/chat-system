@@ -1,7 +1,7 @@
 import React from 'react';
 import equal from 'fast-deep-equal'
 import Message from './Message';
-import { url, jwt } from '../../helper';
+import { url, jwt, Consumer } from '../../helper';
 
 class MessagesList extends React.Component {
   constructor(props) {
@@ -13,12 +13,23 @@ class MessagesList extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(!equal(this.props.chat, prevProps.chat)) {
-      this.updateUser();
+      this.updateChat();
     }
   }
 
-  updateUser() {
-    fetch(url + '/chats/' + this.props.chat.id + '/messages', {
+  updateChat() {
+    const chat_id = this.props.chat.id;
+    this.subscription = Consumer.cable.subscriptions.create({channel: "ChatChannel", id: chat_id}, {
+      connected: function() { console.log("cable: connected") },
+      disconnected: function() { console.log("cable: disconnected") },
+      received: (data) => {
+        let messages = this.state.messages.slice();
+        messages.push(data);
+        this.setState({messages: messages});
+      }
+    });
+
+    fetch(url + '/chats/' + chat_id + '/messages', {
       method: "GET",
       headers: {
         'Authorization': 'Bearer ' + jwt(),
