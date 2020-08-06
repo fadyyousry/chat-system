@@ -5,15 +5,32 @@ import Chat from './Chat';
 import RoomsList from './RoomsList';
 
 
-function ChatBox(props) {
-  return (
+class ChatBox extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      current_room: {
+        name: ""
+      },
+    }
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(room) {
+    this.setState({current_room: room});
+  }
+
+  render() {
+    return (
       <div className="row">
         <div className="col-10 offset-1 chatbox">
-          <RoomsList />
-          <Chat />
+          <RoomsList onChangeRoom={this.handleChange}/>
+          <Chat room={this.state.current_room}/>
         </div>
       </div>
-  );
+    );
+  }
 }
 
 export default ChatBox;

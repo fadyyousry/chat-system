@@ -38,7 +38,8 @@ class SignIn extends React.Component {
       response.json().then((result) => {
         localStorage.setItem('login', JSON.stringify({
           login: true,
-          token: result.auth_token
+          token: result.auth_token,
+          current_user_id: result.current_user_id
         }))
         this.setState({loggedIn: true});
       })

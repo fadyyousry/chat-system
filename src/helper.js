@@ -4,6 +4,8 @@ const store = JSON.parse(localStorage.getItem('login'))
 
 const loggedIn = () => { return store && store.login }
 
-const jwt = store.token
+const jwt = () => {if (store) return store.token;}
 
-export {url, loggedIn, jwt};
+const userId = () => {if (store) return store.current_user_id;}
+
+export {url, loggedIn, jwt, userId};

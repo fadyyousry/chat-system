@@ -13,7 +13,7 @@ class RoomsIndex extends React.Component {
       roomName: ''
     }
 
-    this.handleCreatRoom = this.handleCreatRoom.bind(this);
+    this.handleCreateRoom = this.handleCreateRoom.bind(this);
     this.handleRoomNameChange = this.handleRoomNameChange.bind(this);
   }
 
@@ -21,12 +21,18 @@ class RoomsIndex extends React.Component {
     fetch(url + '/chats', {
       method: "GET",
       headers: {
-        'Authorization': 'Bearer ' + jwt,
+        'Authorization': 'Bearer ' + jwt(),
       },
     }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
       response.json().then((result) => {
         this.setState({rooms: result});
       })
+    })
+    .catch((error) => {
+      console.error('Error:', error);
     })
   }
 
@@ -34,12 +40,12 @@ class RoomsIndex extends React.Component {
     this.setState({roomName: event.target.value});
   }
 
-  handleCreatRoom() {
+  handleCreateRoom() {
     const body = {chat: {name: this.state.roomName}}
     fetch(url + '/chats', {
       method: "POST",
       headers: {
-        'Authorization': 'Bearer ' + jwt,
+        'Authorization': 'Bearer ' + jwt(),
         'Content-Type': 'application/json',
       },
       body:JSON.stringify(body)
@@ -63,7 +69,7 @@ class RoomsIndex extends React.Component {
     const rooms = this.state.rooms;
     return(
       <div>
-        <button className="btn btn-lg btn-primary" onClick={this.handleCreatRoom}>
+        <button className="btn btn-lg btn-primary" onClick={this.handleCreateRoom}>
           <FontAwesomeIcon icon={faPlus} /> Create a new room
         </button>
         <input type="text" className="text-field" name="roomname" placeholder="Room Name"

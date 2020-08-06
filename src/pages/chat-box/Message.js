@@ -1,11 +1,19 @@
 import React from 'react';
+import { userId } from '../../helper';
 
-function Message(props) {
-  return(
-    <div className="bubble you">
-        "Hello, can you hear me?"
-    </div>
-  );
+class Message extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    let className = "bubble ";
+    className += userId() === this.props.message.user_id ? "me" : "you";
+    return(
+      <div className={className}>
+        {this.props.message.message}
+      </div>
+    );
+  }
 }
 
 export default Message;

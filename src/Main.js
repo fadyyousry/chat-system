@@ -20,7 +20,7 @@ const DecisionRoute = ({ trueComponent, falseComponent, decisionFunc}) => {
   )
 }
 
-const Main = () => {
+function Main() {
   return (
     <Switch>
       <DecisionRoute path="/signup" exact={true}

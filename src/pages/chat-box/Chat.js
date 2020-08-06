@@ -2,14 +2,22 @@ import React from 'react';
 import MessagesList from './MessagesList';
 import Typing from './Typing';
 
-function Chat(props) {
-  return (
-    <div className="right">
-      <div className="top"><span>To: <span className="name">{props.chat_name}</span></span></div>
-        <MessagesList />
-        <Typing />
-    </div>
-  );
+class Chat extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    let name = '';
+    if (this.props.room) name = this.props.room.name;
+    return (
+      <div className="right">
+        <div className="top"><span>To: <span className="name">{name}</span></span></div>
+        <MessagesList chat={this.props.room}/>
+        <Typing chat={this.props.room}/>
+      </div>
+    );
+  }
 }
 
 export default Chat;
