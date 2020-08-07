@@ -1,5 +1,6 @@
 import React from 'react';
-import { url, jwt } from '../../helper';
+import { url } from '../../helper';
+import auth from '../../auth';
 
 class Room extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Room extends React.Component {
     fetch(url + '/connection_exists?' + query, {
       method: "GET",
       headers: {
-        'Authorization': 'Bearer ' + jwt(),
+        'Authorization': 'Bearer ' + auth.jwt(),
       },
     })
     .then(response => {
@@ -42,7 +43,7 @@ class Room extends React.Component {
     fetch(url + '/connections', {
       method: "POST",
       headers: {
-        'Authorization': 'Bearer ' + jwt(),
+        'Authorization': 'Bearer ' + auth.jwt(),
         'Content-Type': 'application/json',
       },
       body:JSON.stringify(body)
