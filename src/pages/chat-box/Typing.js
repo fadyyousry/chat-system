@@ -1,5 +1,6 @@
 import React from 'react';
-import { url, jwt } from '../../helper';
+import { url } from '../../helper';
+import auth from '../../auth';
 
 class Typing extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Typing extends React.Component {
     fetch(url + '/chats/' + this.props.chat.id + '/messages', {
       method: "POST",
       headers: {
-        'Authorization': 'Bearer ' + jwt(),
+        'Authorization': 'Bearer ' + auth.jwt(),
         'Content-Type': 'application/json',
       },
       body:JSON.stringify(body)

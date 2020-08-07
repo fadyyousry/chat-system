@@ -1,7 +1,8 @@
 import React from 'react';
 import equal from 'fast-deep-equal'
 import Message from './Message';
-import { url, jwt, Consumer } from '../../helper';
+import { url, Consumer } from '../../helper';
+import auth from '../../auth';
 
 class MessagesList extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class MessagesList extends React.Component {
     fetch(url + '/chats/' + chat_id + '/messages', {
       method: "GET",
       headers: {
-        'Authorization': 'Bearer ' + jwt(),
+        'Authorization': 'Bearer ' + auth.jwt(),
       },
     }).then((response) => {
       if (!response.ok) {

@@ -1,10 +1,11 @@
 import React from 'react';
-import { userId } from '../../helper';
+import auth from '../../auth';
+
 
 class Message extends React.Component {
   render() {
     let className = "bubble ";
-    className += userId() === this.props.message.user_id ? "me" : "you";
+    className += auth.userId() === this.props.message.user_id ? "me" : "you";
     return(
       <div className={className}>
         {this.props.message.message}

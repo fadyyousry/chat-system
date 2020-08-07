@@ -1,47 +1,51 @@
-import React from 'react';
 import './App.css'
-import { Link } from 'react-router-dom';
-import { loggedIn } from './helper';
-import Main from './Main';
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import ChatBox from './pages/chat-box/ChatBox';
+import SignIn from './pages/auth/SignIn';
+import SignUp from './pages/auth/SignUp';
+import RoomsIndex from './pages/rooms/RoomsIndex';
+import auth from './auth';
+
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: loggedIn()
-    }
-    this.handleLogout = this.handleLogout.bind(this);
-    this.handleLoggedIn = this.handleLoggedIn.bind(this);
-
-  }
-
-  handleLogout() {
-    localStorage.removeItem('login');
-    this.setState({loggedIn: false});
-  }
-
-  handleLoggedIn(e) {
-    this.setState({loggedIn: true});
-  }
-
   render(){
-    let nav =
-    <div>
-      <Link to="/chats" className="btn btn-info mb-3 col-2" >Home</Link>
-      <Link to="/rooms" className="btn btn-info mb-3 col-2" >Rooms</Link>
-      {this.state.loggedIn?
-        <button className="btn btn-danger mb-3 col-2 offset-6" type="button"
-       onClick={this.handleLogout} >Logout</button>
-       :
-      <Link to="/signup" className="btn btn-primary mb-3 col-2 offset-6" >Sign Up</Link>}
-    </div>
     return (
       <div className="container mt-5">
-        {nav}
-        <Main />
+        <Switch>
+          <ProtectedRoute path='/login' exact component={SignIn} />
+          <ProtectedRoute path='/register' exact component={SignUp} />
+          <PrivateRoute  path='/rooms' exact component={RoomsIndex} />
+          <PrivateRoute  path='/chats' exact component={ChatBox} />
+          <Route path='*'>
+            <Redirect to='/chats' />
+          </Route>
+        </Switch>
       </div>
     );
   }
+}
+
+function ProtectedRoute ({component: Component, authed, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => auth.isAuth() === false
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+    />
+  )
+}
+
+function PrivateRoute ({component: Component, authed, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => auth.isAuth() === true
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
+    />
+  )
 }
 
 export default App;

@@ -3,7 +3,9 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus  } from '@fortawesome/free-solid-svg-icons';
 import Room from './Room';
-import { url, jwt } from '../../helper';
+import Nav from '../Nav';
+import { url } from '../../helper';
+import auth from '../../auth';
 
 class RoomsIndex extends React.Component {
   constructor(props) {
@@ -21,7 +23,7 @@ class RoomsIndex extends React.Component {
     fetch(url + '/chats', {
       method: "GET",
       headers: {
-        'Authorization': 'Bearer ' + jwt(),
+        'Authorization': 'Bearer ' + auth.jwt(),
       },
     }).then((response) => {
       if (!response.ok) {
@@ -45,7 +47,7 @@ class RoomsIndex extends React.Component {
     fetch(url + '/chats', {
       method: "POST",
       headers: {
-        'Authorization': 'Bearer ' + jwt(),
+        'Authorization': 'Bearer ' + auth.jwt(),
         'Content-Type': 'application/json',
       },
       body:JSON.stringify(body)
@@ -69,16 +71,19 @@ class RoomsIndex extends React.Component {
     const rooms = this.state.rooms;
     return(
       <div>
-        <button className="btn btn-lg btn-primary" onClick={this.handleCreateRoom}>
-          <FontAwesomeIcon icon={faPlus} /> Create a new room
-        </button>
-        <input type="text" className="text-field" name="roomname" placeholder="Room Name"
-        value={this.state.roomName} onChange={this.handleRoomNameChange} />
-        <ul className="row mt-5">
-            {rooms.map(room => (
-              <li className="col-3 mb-4" key={room.id}><Room room={room} /></li>
-            ))}
-        </ul>
+        <Nav />
+        <div>
+          <button className="btn btn-lg btn-primary" onClick={this.handleCreateRoom}>
+            <FontAwesomeIcon icon={faPlus} /> Create a new room
+          </button>
+          <input type="text" className="text-field" name="roomname" placeholder="Room Name"
+          value={this.state.roomName} onChange={this.handleRoomNameChange} />
+          <ul className="row mt-5">
+              {rooms.map(room => (
+                <li className="col-3 mb-4" key={room.id}><Room room={room} /></li>
+              ))}
+          </ul>
+        </div>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Room from './Room';
-import { url, jwt } from '../../helper';
+import auth from '../../auth';
+import { url } from '../../helper';
 
 
 class RoomsList extends React.Component {
@@ -17,7 +18,7 @@ class RoomsList extends React.Component {
     fetch(url + '/chats?mine=true', {
       method: "GET",
       headers: {
-        'Authorization': 'Bearer ' + jwt(),
+        'Authorization': 'Bearer ' + auth.jwt(),
       },
     }).then((response) => {
       if (!response.ok) {
