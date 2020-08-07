@@ -1,6 +1,6 @@
 import './App.css'
 import React from 'react';
-import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import ChatBox from './pages/chat-box/ChatBox';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';

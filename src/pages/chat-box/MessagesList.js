@@ -51,14 +51,15 @@ class MessagesList extends React.Component {
   render() {
     const messages = this.state.messages;
     return (
+      <div className="chat-wrapper">
       <ul className="chat">
-        <div className="conversation-start"></div>
           {messages.map(message => (
             <li key={message.id}>
               <Message message={message} />
             </li>
           ))}
       </ul>
+      </div>
     );
   }
 }

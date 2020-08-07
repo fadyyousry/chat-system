@@ -31,45 +31,7 @@
   height: 96px;
   padding: 29px;
 }
-.chatbox .left .top:after {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  display: block;
-  width: 80%;
-  height: 1px;
-  content: '';
-  background-color: var(--light);
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
-}
-.chatbox .left input {
-  float: left;
-  width: 188px;
-  height: 42px;
-  padding: 0 15px;
-  border: 1px solid var(--light);
-  background-color: #eceff1;
-  border-radius: 21px;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 400;
-}
-.chatbox .left input:focus {
-  outline: none;
-}
-.chatbox .left a.search {
-  display: block;
-  float: left;
-  width: 42px;
-  height: 42px;
-  margin-left: 10px;
-  border: 1px solid var(--light);
-  background-color: var(--blue);
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/name-type.png");
-  background-repeat: no-repeat;
-  background-position: top 12px left 14px;
-  border-radius: 50%;
-}
+
 .chatbox .left .people {
   margin-left: -1px;
   padding: 0;
@@ -97,15 +59,7 @@
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
 }
-.chatbox .left .people .person img {
-  float: left;
-  width: 40px;
-  height: 40px;
-  margin-right: 12px;
-  border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
+
 .chatbox .left .people .person .name {
   font-size: 14px;
   line-height: 22px;
@@ -168,73 +122,23 @@
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
 }
+.chatbox .right .chat-wrapper {
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  height: calc(100% - 100px);
+}
 .chatbox .right .chat {
   position: relative;
-  overflow: hidden;
   padding: 0 35px 92px;
   border-width: 1px 1px 1px 0;
-  border-style: solid;
   border-color: var(--light);
-  height: calc(100% - 48px);
   list-style-type: none;
-  -webkit-box-pack: end;
-          justify-content: flex-end;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-          flex-direction: column;
 }
-.chatbox .right .chat.active-chat {
-  display: block;
-  display: -webkit-box;
-  display: flex;
-}
-.chatbox .right .chat.active-chat .bubble {
-  -webkit-transition-timing-function: cubic-bezier(0.4, -0.04, 1, 1);
-          transition-timing-function: cubic-bezier(0.4, -0.04, 1, 1);
-}
-.chatbox .right .chat.active-chat .bubble:nth-of-type(1) {
-  -webkit-animation-duration: 0.15s;
-          animation-duration: 0.15s;
-}
-.chatbox .right .chat.active-chat .bubble:nth-of-type(2) {
-  -webkit-animation-duration: 0.3s;
-          animation-duration: 0.3s;
-}
-.chatbox .right .chat.active-chat .bubble:nth-of-type(3) {
-  -webkit-animation-duration: 0.45s;
-          animation-duration: 0.45s;
-}
-.chatbox .right .chat.active-chat .bubble:nth-of-type(4) {
-  -webkit-animation-duration: 0.6s;
-          animation-duration: 0.6s;
-}
-.chatbox .right .chat.active-chat .bubble:nth-of-type(5) {
-  -webkit-animation-duration: 0.75s;
-          animation-duration: 0.75s;
-}
-.chatbox .right .chat.active-chat .bubble:nth-of-type(6) {
-  -webkit-animation-duration: 0.9s;
-          animation-duration: 0.9s;
-}
-.chatbox .right .chat.active-chat .bubble:nth-of-type(7) {
-  -webkit-animation-duration: 1.05s;
-          animation-duration: 1.05s;
-}
-.chatbox .right .chat.active-chat .bubble:nth-of-type(8) {
-  -webkit-animation-duration: 1.2s;
-          animation-duration: 1.2s;
-}
-.chatbox .right .chat.active-chat .bubble:nth-of-type(9) {
-  -webkit-animation-duration: 1.35s;
-          animation-duration: 1.35s;
-}
-.chatbox .right .chat.active-chat .bubble:nth-of-type(10) {
-  -webkit-animation-duration: 1.5s;
-          animation-duration: 1.5s;
-}
+
 .chatbox .right .write {
   position: absolute;
-  bottom: 29px;
+  bottom: 15px;
   left: 30px;
   height: 42px;
   padding-left: 8px;
@@ -255,37 +159,6 @@
   background-color: #eceff1;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
-}
-.chatbox .right .write .write-link.attach:before {
-  display: inline-block;
-  float: left;
-  width: 20px;
-  height: 42px;
-  content: '';
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/attachment.png");
-  background-repeat: no-repeat;
-  background-position: center;
-}
-.chatbox .right .write .write-link.smiley:before {
-  display: inline-block;
-  float: left;
-  width: 20px;
-  height: 42px;
-  content: '';
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/smiley.png");
-  background-repeat: no-repeat;
-  background-position: center;
-}
-.chatbox .right .write .write-link.send:before {
-  display: inline-block;
-  float: left;
-  width: 20px;
-  height: 42px;
-  margin-left: 11px;
-  content: '';
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/send.png");
-  background-repeat: no-repeat;
-  background-position: center;
 }
 .chatbox .right .bubble {
   font-size: 16px;
@@ -312,8 +185,6 @@
   color: var(--dark);
   background-color: #eceff1;
   align-self: flex-start;
-  -webkit-animation-name: slideFromLeft;
-          animation-name: slideFromLeft;
 }
 .chatbox .right .bubble.you:before {
   left: -3px;
@@ -324,77 +195,8 @@
   color: var(--white);
   background-color: var(--blue);
   align-self: flex-end;
-  -webkit-animation-name: slideFromRight;
-          animation-name: slideFromRight;
 }
 .chatbox .right .bubble.me:before {
   right: -3px;
   background-color: var(--blue);
-}
-.chatbox .right .conversation-start {
-  position: relative;
-  width: 100%;
-  margin-bottom: 27px;
-  text-align: center;
-}
-.chatbox .right .conversation-start span {
-  font-size: 14px;
-  display: inline-block;
-  color: var(--grey);
-}
-.chatbox .right .conversation-start span:before, .chatbox .right .conversation-start span:after {
-  position: absolute;
-  top: 10px;
-  display: inline-block;
-  width: 30%;
-  height: 1px;
-  content: '';
-  background-color: var(--light);
-}
-.chatbox .right .conversation-start span:before {
-  left: 0;
-}
-.chatbox .right .conversation-start span:after {
-  right: 0;
-}
-
-@keyframes slideFromLeft {
-  0% {
-    margin-left: -200px;
-    opacity: 0;
-  }
-  100% {
-    margin-left: 0;
-    opacity: 1;
-  }
-}
-@-webkit-keyframes slideFromLeft {
-  0% {
-    margin-left: -200px;
-    opacity: 0;
-  }
-  100% {
-    margin-left: 0;
-    opacity: 1;
-  }
-}
-@keyframes slideFromRight {
-  0% {
-    margin-right: -200px;
-    opacity: 0;
-  }
-  100% {
-    margin-right: 0;
-    opacity: 1;
-  }
-}
-@-webkit-keyframes slideFromRight {
-  0% {
-    margin-right: -200px;
-    opacity: 0;
-  }
-  100% {
-    margin-right: 0;
-    opacity: 1;
-  }
 }

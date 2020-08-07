@@ -27,6 +27,7 @@ class Typing extends React.Component {
       if (!response.ok) {
         throw Error(response.statusText);
       }
+      this.setState({message: ''});
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -42,7 +43,8 @@ class Typing extends React.Component {
     return (
       <div className="write">
         <form method="post" onSubmit={this.handleCreateMessage}>
-          <input type="text" placeholder="Type a message" onChange={this.handleMessageChange}/>
+          <input type="text" value={this.state.message} placeholder="Type a message"
+           onChange={this.handleMessageChange}/>
         </form>
       </div>
     );
