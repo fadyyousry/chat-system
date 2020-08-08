@@ -19,6 +19,7 @@ class Room extends React.Component {
     let query = Object.keys(params)
                  .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
                  .join('&');
+
     fetch(url + '/connection_exists?' + query, {
       method: "GET",
       headers: {
@@ -63,7 +64,10 @@ class Room extends React.Component {
     return (
       <div className="card text-center">
         <div className="card-body">
-          <h5 className="card-title">{this.props.room.name}</h5>
+          <div className="room-card">
+            <h5 className="card-title">{this.props.room.name}</h5>
+            <p className="card-text">{this.props.room.description}</p>
+          </div>
           <button className="btn btn-primary" onClick={this.handleConnection} disabled={this.state.connected}>
             Join and chat now!
           </button>

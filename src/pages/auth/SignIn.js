@@ -10,6 +10,7 @@ class SignIn extends React.Component {
     this.state = {
       email: '',
       password: '',
+      errorMassage: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,33 +28,44 @@ class SignIn extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
+
+    const body = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
     fetch(url + '/login', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body:JSON.stringify(this.state)
+      body:JSON.stringify(body)
     }).then((response) => {
-      if (!response.ok) {
+      if (response.status === 401) {
+        this.setState({errorMassage: "Wrong email or password"})
+      }
+      else if (!response.ok) {
         throw Error(response.statusText);
       }
-      response.json().then((result) => {
-        auth.login(
-          () => {
-            localStorage.setItem('login', JSON.stringify({
-              login: true,
-              token: result.auth_token,
-              current_user_id: result.current_user_id
-            }));
-            this.props.history.push('/chats');
-          }
-        );
-      })
+      else {
+        response.json().then((result) => {
+          auth.login(
+            () => {
+              localStorage.setItem('login', JSON.stringify({
+                login: true,
+                token: result.auth_token,
+                email: this.state.email
+              }));
+              this.props.history.push('/chats');
+            }
+          );
+        })
+      }
     })
     .catch((error) => {
       console.error('Error:', error);
     })
-    event.preventDefault();
   }
 
   render() {
@@ -63,6 +75,7 @@ class SignIn extends React.Component {
         {
           <form className="form" method="post" onSubmit={this.handleSubmit}>
             <h2 className="form-heading">Please login</h2>
+            <span className="error-massage">{this.state.errorMassage}</span>
             <input type="text" className="form-control" name="email" placeholder="Email Address" required="" autoFocus=""
             value={this.state.email} onChange={this.handleChange} />
             <input type="password" className="form-control" name="password" placeholder="Password" required=""

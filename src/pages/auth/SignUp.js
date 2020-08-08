@@ -1,6 +1,5 @@
 import './style.scss';
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import Nav from '../Nav';
 import { url } from '../../helper';
 
@@ -14,7 +13,7 @@ class SignUp extends React.Component {
         password: '',
         password_confirmation: '',
       },
-      signedUp: false
+      errorMassage: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,47 +32,51 @@ class SignUp extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
+
+    const body = {
+      user: this.state.user
+    };
+
     fetch(url + '/users', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body:JSON.stringify(this.state)
+      body:JSON.stringify(body)
     }).then((response) => {
-      if (!response.ok) {
+      if (response.status === 422) {
+        this.setState({errorMassage: "Email has been already taken"})
+      }
+      else if (!response.ok) {
         throw Error(response.statusText);
       }
-      response.json().then((result) => {
-        this.setState({signedUp: true});
-      })
+      else {
+        this.props.history.push('/login');
+      }
     })
     .catch((error) => {
       console.error('Error:', error);
     })
-    event.preventDefault();
   }
 
   render() {
     return (
       <div>
         <Nav />
-        <div>
-          {
-            this.state.signedUp?
-            <Redirect to="/login" />
-            :
-            <form className="form" method="post" onSubmit={this.handleSubmit}>
-              <h2 className="form-heading">Sign Up</h2>
-              <input type="text" className="form-control" name="email" placeholder="Email Address" required="" autoFocus=""
-              value={this.state.user.email} onChange={this.handleChange} />
-              <input type="password" className="form-control" name="password" placeholder="Password" required=""
-              value={this.state.user.password} onChange={this.handleChange}/>
-              <input type="password" className="form-control" name="password_confirmation" placeholder="Confirm Password" required=""
-              value={this.state.user.password_confirmation} onChange={this.handleChange}/>
-              <button className="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
-            </form>
-          }
-        </div>
+        {
+          <form className="form" method="post" onSubmit={this.handleSubmit}>
+            <h2 className="form-heading">Sign Up</h2>
+            <span className="error-massage">{this.state.errorMassage}</span>
+            <input type="text" className="form-control" name="email" placeholder="Email Address" required="" autoFocus=""
+            value={this.state.user.email} onChange={this.handleChange} />
+            <input type="password" className="form-control" name="password" placeholder="Password" required=""
+            value={this.state.user.password} onChange={this.handleChange}/>
+            <input type="password" className="form-control" name="password_confirmation" placeholder="Confirm Password" required=""
+            value={this.state.user.password_confirmation} onChange={this.handleChange}/>
+            <button className="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+          </form>
+        }
       </div>
     );
   }

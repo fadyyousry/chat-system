@@ -5,10 +5,13 @@ import auth from '../../auth';
 class Message extends React.Component {
   render() {
     let className = "bubble ";
-    className += auth.userId() === this.props.message.user_id ? "me" : "you";
+    className += auth.email() === this.props.message.email ? "me" : "you";
     return(
-      <div className={className}>
-        {this.props.message.message}
+      <div>
+        <div className={className}>
+          <p><small>{this.props.message.email}</small></p>
+          {this.props.message.message}
+        </div>
       </div>
     );
   }

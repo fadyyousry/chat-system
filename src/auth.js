@@ -22,9 +22,9 @@ class Auth {
     if (this.authed) return this.store.token;
   }
 
-  userId() {
+  email() {
     this.reload();
-    if (this.authed) return this.store.current_user_id;
+    if (this.authed) return this.store.email;
   }
 
   login(callback=() => {}) {
