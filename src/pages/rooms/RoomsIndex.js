@@ -22,6 +22,7 @@ class RoomsIndex extends React.Component {
     }
 
     this.handleCreateRoom = this.handleCreateRoom.bind(this);
+    this.handleDeleteRoom = this.handleDeleteRoom.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
   }
 
@@ -50,6 +51,12 @@ class RoomsIndex extends React.Component {
     this.setState({rooms: rooms});
   }
 
+  handleDeleteRoom(index){
+   this.setState({
+       rooms: this.state.rooms.filter(el => el !== index )
+   });
+}
+
   togglePopup() {
     this.setState({showPopup: !this.state.showPopup});
   }
@@ -65,7 +72,8 @@ class RoomsIndex extends React.Component {
           </button>
           <ul className="row mt-5">
               {rooms.map(room => (
-                <li className="col-3 mb-4" key={room.id}><Room room={room} /></li>
+                <li className="col-3 mb-4" key={room.id}><Room room={room}
+                 handleDeleteRoom={this.handleDeleteRoom}/></li>
               ))}
           </ul>
           {this.state.showPopup ?

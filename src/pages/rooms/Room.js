@@ -10,6 +10,7 @@ class Room extends React.Component {
     }
 
     this.handleConnection = this.handleConnection.bind(this);
+    this.handleDeleteRoom = this.handleDeleteRoom.bind(this);
   }
 
   componentDidMount(){
@@ -60,12 +61,37 @@ class Room extends React.Component {
     })
   }
 
+  handleDeleteRoom(event) {
+    fetch(url + '/chats/' + this.props.room.id , {
+      method: "DELETE",
+      headers: {
+        'Authorization': 'Bearer ' + auth.jwt(),
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      else {
+        this.props.handleDeleteRoom(this.props.room);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    })
+  }
+
   render() {
     return (
       <div className="card text-center">
+      <div className="card-header">
+      {auth.id() === this.props.room.owner_id ?
+        <button className="close" onClick={this.handleDeleteRoom}>X</button> : null
+      }
+      <span>{this.props.room.name}</span>
+      </div>
         <div className="card-body">
           <div className="room-card">
-            <h5 className="card-title">{this.props.room.name}</h5>
             <p className="card-text">{this.props.room.description}</p>
           </div>
           <button className="btn btn-primary" onClick={this.handleConnection} disabled={this.state.connected}>

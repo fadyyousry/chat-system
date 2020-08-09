@@ -3,6 +3,11 @@
   padding: 10px;
 }
 
+.card-header {
+  height:50px;
+  overflow: hidden;
+}
+
 .room-card {
   height:130px;
   overflow: auto;
@@ -47,7 +52,7 @@
   text-decoration: none;
   color: #333;
 }
-.popup_inner .close:hover {
+.close:hover {
   color: #CA0B00;
 }
 

@@ -2,6 +2,7 @@ class Auth {
   static myInstance = null;
 
   constructor() {
+    this.cookie = 'login';
     this.reload();
     this.authed = this.store && this.store.login ? true : false;
   }
@@ -14,27 +15,31 @@ class Auth {
   }
 
   reload() {
-    this.store = JSON.parse(localStorage.getItem('login'));
+    this.store = JSON.parse(localStorage.getItem(this.cookie));
   }
 
   jwt() {
-    this.reload();
     if (this.authed) return this.store.token;
   }
 
   email() {
-    this.reload();
     if (this.authed) return this.store.email;
   }
 
-  login(callback=() => {}) {
+  id() {
+    if (this.authed) return this.store.userId;
+  }
+
+  login(store, callback=() => {}) {
     this.authed = true;
+    localStorage.setItem(this.cookie, JSON.stringify(store));
+    this.reload();
     callback();
   }
 
   logout(callback=() => {}) {
     this.authed = false;
-    localStorage.removeItem('login');
+    localStorage.removeItem(this.cookie);
     callback();
   }
 

@@ -50,13 +50,13 @@ class SignIn extends React.Component {
       }
       else {
         response.json().then((result) => {
-          auth.login(
+          auth.login({
+              login: true,
+              token: result.auth_token,
+              userId: result.current_user_id,
+              email: this.state.email
+            },
             () => {
-              localStorage.setItem('login', JSON.stringify({
-                login: true,
-                token: result.auth_token,
-                email: this.state.email
-              }));
               this.props.history.push('/chats');
             }
           );

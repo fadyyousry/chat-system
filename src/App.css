@@ -21,3 +21,9 @@
 .hit-the-floor {
   text-align: center;
 }
+
+.user {
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
