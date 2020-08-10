@@ -20,18 +20,20 @@ class Nav extends React.Component {
   render() {
     return (
       <nav>{auth.isAuth() ?
-        <div><div className="btn-group mb-3" role="group" aria-label="Basic example">
-          <Link to="/chats" className="btn btn-info" >Home</Link>
-          <Link to="/rooms" className="btn btn-info" >Rooms</Link>
-          <button className="btn btn-danger" type="button" onClick={this.handleLogout} >
-            Leave
-          </button>
+        <div>
+          <div className="btn-group mb-3" role="group" aria-label="Basic example">
+            <Link to="/chats" className="btn btn-info" >Home</Link>
+            <Link to="/rooms" className="btn btn-info" >Rooms</Link>
+            <button className="btn btn-danger" type="button" onClick={this.handleLogout} >
+              Leave
+            </button>
+          </div>
+          <small className="user bg-secondary float-right">{auth.email()} </small>
         </div>
-        <small className="user bg-secondary float-right">{auth.email()} </small></div>
          :
-         <div>
-          <Link to="/register" className="btn btn-primary mb-3 col-2" >Sign Up</Link>
-          <Link to="/login" className="btn btn-primary mb-3 col-2" >Login</Link>
+         <div className="btn-group mb-3" role="group" aria-label="Basic example">
+          <Link to="/register" className="btn btn-primary" >Sign Up</Link>
+          <Link to="/login" className="btn btn-primary" >Login</Link>
         </div>
       }</nav>
     );
