@@ -1,4 +1,6 @@
 import React from 'react';
+import 'emoji-mart/css/emoji-mart.css';
+import { Picker } from 'emoji-mart';
 import { url } from '../../helper';
 import auth from '../../auth';
 
@@ -6,11 +8,14 @@ class Typing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: ''
+      message: '',
+      showEmojiPicker: false
     }
 
     this.handleCreateMessage = this.handleCreateMessage.bind(this);
     this.handleMessageChange = this.handleMessageChange.bind(this);
+    this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
+    this.addEmoji = this.addEmoji.bind(this);
   }
 
   handleCreateMessage(event) {
@@ -39,13 +44,32 @@ class Typing extends React.Component {
     this.setState({message: event.target.value});
   }
 
+  addEmoji(event) {
+    let emoji = event.native;
+    this.setState({
+      message: this.state.message + emoji
+    });
+  }
+
+  toggleEmojiPicker() {
+    this.setState({
+      showEmojiPicker: !this.state.showEmojiPicker,
+    });
+  }
+
   render() {
     return (
       <div className="write">
+        {this.state.showEmojiPicker ?
+          <div className="emoji-picker">
+          <Picker onSelect={this.addEmoji} />
+          </div>
+          : null}
         <form method="post" onSubmit={this.handleCreateMessage}>
-          <input type="text" value={this.state.message} placeholder="Type a message"
+          <input className="typing" type="text" value={this.state.message} placeholder="Type a message"
            onChange={this.handleMessageChange}/>
         </form>
+        <button className="btn btn-link smiley p-0" onClick={this.toggleEmojiPicker}></button>
       </div>
     );
   }

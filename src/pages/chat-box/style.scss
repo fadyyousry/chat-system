@@ -150,7 +150,26 @@
   width: calc(100% - 58px);
   border-radius: 5px;
 }
-.chatbox .right .write input {
+
+.chatbox .right .smiley {
+  &:before {
+      display: inline-block;
+      width: 20px;
+      height: 42px;
+      content: '';
+      background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/smiley.png');
+      background-repeat: no-repeat;
+      background-position: center;
+  }
+}
+
+.chatbox .right .emoji-picker {
+  position: absolute;
+  top: -430px;
+  right: 0;
+}
+
+.chatbox .right .write .typing {
   font-size: 16px;
   float: left;
   width: 490px;
